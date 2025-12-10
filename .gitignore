@@ -1,0 +1,18 @@
+# === OS files ===
+.DS_Store
+
+# === IDEs and Editors ===
+# VS Code
+.vscode/
+
+# === Build and Compilation ===
+*.class
+
+# === Allow only Java source files and relevant text assets ===
+# Keep these
+!*.java
+!*.md
+!*.txt
+!*.csv
+!*.json
+!*.xml
