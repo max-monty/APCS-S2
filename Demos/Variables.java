@@ -1,6 +1,9 @@
-public class Main {
+package Demos;
+
+public class Variables {
     public static void main(String[] args) {
-        double x = 2.50; // not float anymore 
+        double x = 2.50; // not float anymore
+        char c = 'x'; 
 
         System.out.print("Hello "); // stays on same line
         System.out.println("world!"); // moves to a new line
