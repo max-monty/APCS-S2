@@ -17,7 +17,7 @@ public class Input_and_APIs {
 
         System.out.print("How old are you? ");
         int a = userInput.nextInt();
-        // in.nextLine(); 
+        // userInput.nextLine(); 
         System.out.print("What is your name? ");
         String n = userInput.nextLine();
         System.out.println("USER: " + n.toUpperCase() + " AGE: " + a);

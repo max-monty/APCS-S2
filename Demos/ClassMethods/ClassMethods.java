@@ -22,6 +22,7 @@ public class ClassMethods {
         boolean b = check100(4, 5); // Call class method from same class
 
         AnotherClass.iAmAPublicClassMethod(); // Call class method from another class
+        
     }
 
     // Custom class method
