@@ -1,10 +1,11 @@
-package Demos;
+package Demos.Input;
 
 import java.util.Scanner;
 
 public class Input_and_APIs {
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
+        
 
         // BASIC SCANNER //
 
@@ -17,7 +18,7 @@ public class Input_and_APIs {
 
         System.out.print("How old are you? ");
         int a = userInput.nextInt();
-        // userInput.nextLine(); 
+        userInput.nextLine(); 
         System.out.print("What is your name? ");
         String n = userInput.nextLine();
         System.out.println("USER: " + n.toUpperCase() + " AGE: " + a);
