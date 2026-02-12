@@ -74,8 +74,6 @@ Add a default (no-argument) constructor that sets:
 ### 8) Overloaded Method
 
 Add an overloaded method `adjustTemp` that:
-- uses parameter `double amount` if passed by the user
-- uses `amount = 1` if nothing is passed by the user
 - Increases `currentTemp` by `amount` if `isHeating` is true
 - Decreases `currentTemp` by `amount` if `isHeating` is false
 
