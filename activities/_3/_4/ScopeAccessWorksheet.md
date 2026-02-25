@@ -16,7 +16,7 @@ In `Temperature.java`, create a class with:
   public Temperature(double degrees, String scale)
   ```
   Use `this` to assign correctly.
-- `toString()` that returns something like: `72.0°F`
+- `toString()` that returns something like: `72.0 degrees Fahrenheit`
 
 ---
 
@@ -58,7 +58,7 @@ Add a method `void copyFrom(Temperature other)` that:
 
 ### 6) Find the Bugs
 
-The class below has **5 scope/access bugs**. Find and fix them all.
+The class below has **5 scope/access bugs**. Fix them all.
 
 ```java
 public class BankAccount {
