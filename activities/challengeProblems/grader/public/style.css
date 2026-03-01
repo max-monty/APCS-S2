@@ -1,0 +1,444 @@
+/* ── Reset & base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sidebar-w: 210px;
+  --navy:   #1a2540;
+  --navy2:  #243050;
+  --navy3:  #2e3d63;
+  --accent: #4f8ef7;
+  --accent2:#6ba3ff;
+  --green:  #22c55e;
+  --green-bg: #f0fdf4;
+  --green-bd: #bbf7d0;
+  --red:    #ef4444;
+  --red-bg: #fef2f2;
+  --red-bd: #fecaca;
+  --orange: #f97316;
+  --orange-bg: #fff7ed;
+  --orange-bd: #fed7aa;
+  --yellow-bg: #fefce8;
+  --yellow-bd: #fef08a;
+  --gray:   #6b7280;
+  --gray-light: #f3f4f6;
+  --gray-mid:   #e5e7eb;
+  --text:   #111827;
+  --text2:  #374151;
+  --text3:  #6b7280;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(0,0,0,.10);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--gray-light);
+}
+
+/* ── Layout ───────────────────────────────────────────────────────────── */
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 16px 18px;
+  border-bottom: 1px solid var(--navy3);
+}
+.brand-icon { font-size: 28px; line-height: 1; }
+.brand-text { display: flex; flex-direction: column; }
+.brand-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .02em;
+}
+.brand-sub {
+  color: var(--accent2);
+  font-size: 10px;
+  margin-top: 3px;
+  letter-spacing: .03em;
+}
+
+.problem-nav {
+  flex: 1;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #c8d6f0;
+  cursor: pointer;
+  text-align: left;
+  transition: background .15s, color .15s;
+}
+.nav-btn:hover { background: var(--navy2); color: #fff; }
+.nav-btn.active { background: var(--accent); color: #fff; }
+
+.nav-num {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: .6;
+  min-width: 22px;
+}
+.nav-btn.active .nav-num { opacity: .85; }
+
+.nav-name { font-size: 12.5px; font-weight: 500; flex: 1; }
+
+.nav-score {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  display: none;
+}
+.nav-score.all-pass  { display: inline; background: var(--green); }
+.nav-score.some-pass { display: inline; background: var(--orange); }
+.nav-score.all-fail  { display: inline; background: var(--red); }
+
+.sidebar-footer {
+  padding: 12px 14px;
+  border-top: 1px solid var(--navy3);
+}
+.java-check {
+  font-size: 11px;
+  color: #8ba3cc;
+}
+.java-check.ok   { color: #6ee7b7; }
+.java-check.warn { color: #fcd34d; }
+
+/* ── Main content ─────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+}
+
+/* ── Problem panels ───────────────────────────────────────────────────── */
+.panel { display: none; max-width: 820px; }
+.panel.active { display: block; }
+
+.panel-header {
+  margin-bottom: 22px;
+}
+.panel-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 4px;
+}
+.panel-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.panel-sub {
+  font-size: 14px;
+  color: var(--text3);
+}
+
+/* ── Upload card ──────────────────────────────────────────────────────── */
+.upload-card {
+  background: #fff;
+  border: 1px solid var(--gray-mid);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.upload-instructions {
+  margin-bottom: 16px;
+}
+.upload-instructions p {
+  color: var(--text2);
+  margin-bottom: 8px;
+  line-height: 1.55;
+}
+.upload-instructions ul {
+  padding-left: 20px;
+  color: var(--text2);
+  line-height: 1.65;
+}
+.upload-instructions code {
+  background: var(--gray-light);
+  border: 1px solid var(--gray-mid);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 12.5px;
+  color: var(--navy);
+}
+.note-box {
+  margin-top: 12px !important;
+  background: var(--yellow-bg);
+  border: 1px solid var(--yellow-bd);
+  border-radius: 7px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #78350f;
+}
+.note-box code {
+  background: rgba(0,0,0,.05) !important;
+  border-color: transparent !important;
+}
+
+.upload-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Hidden real file input */
+.file-input { display: none; }
+
+.file-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: var(--gray-light);
+  border: 1.5px dashed var(--gray-mid);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 13px;
+  transition: border-color .15s, background .15s;
+  flex: 1;
+  min-width: 200px;
+  max-width: 340px;
+}
+.file-label:hover {
+  border-color: var(--accent);
+  background: #eff6ff;
+  color: var(--accent);
+}
+.file-icon { font-size: 16px; }
+.file-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.grade-btn {
+  padding: 9px 22px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, opacity .15s;
+  white-space: nowrap;
+}
+.grade-btn:hover:not(:disabled) { background: #3a7be0; }
+.grade-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ── Loading ──────────────────────────────────────────────────────────── */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text3);
+  padding: 20px 0;
+  font-size: 14px;
+}
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid var(--gray-mid);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Error boxes ──────────────────────────────────────────────────────── */
+.error-box {
+  background: var(--red-bg);
+  border: 1px solid var(--red-bd);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #991b1b;
+  font-size: 13.5px;
+}
+
+.compile-error {
+  background: var(--orange-bg);
+  border: 1px solid var(--orange-bd);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+.compile-title {
+  font-weight: 600;
+  color: #7c2d12;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.error-pre {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 12px;
+  color: #431407;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: rgba(0,0,0,.04);
+  border-radius: 6px;
+  padding: 10px 12px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+/* ── Results ──────────────────────────────────────────────────────────── */
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.class-name {
+  font-size: 13px;
+  color: var(--text3);
+}
+.class-name code {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  color: var(--text2);
+  font-size: 13px;
+}
+.score-badge {
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+}
+.score-badge.all-pass  { background: var(--green-bg);  color: #166534; border: 1px solid var(--green-bd); }
+.score-badge.some-pass { background: var(--orange-bg); color: #7c2d12; border: 1px solid var(--orange-bd); }
+.score-badge.all-fail  { background: var(--red-bg);    color: #991b1b; border: 1px solid var(--red-bd); }
+
+.test-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.test-item {
+  border-radius: 9px;
+  overflow: hidden;
+  border: 1px solid var(--gray-mid);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.test-item.pass { border-color: var(--green-bd); }
+.test-item.fail { border-color: var(--red-bd); }
+
+.test-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.test-item.pass .test-header { background: var(--green-bg); color: #166534; }
+.test-item.fail .test-header { background: var(--red-bg);   color: #991b1b; }
+
+.test-icon { font-size: 15px; font-weight: 900; }
+.test-num  { font-size: 11px; opacity: .7; min-width: 44px; }
+.test-desc { flex: 1; }
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.badge.timeout {
+  background: var(--yellow-bg);
+  border: 1px solid var(--yellow-bd);
+  color: #78350f;
+}
+
+.test-body {
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.test-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12.5px;
+}
+.test-row .label {
+  min-width: 88px;
+  font-weight: 600;
+  color: var(--text3);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.test-row .val {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 12px;
+  color: var(--text2);
+  background: var(--gray-light);
+  border: 1px solid var(--gray-mid);
+  padding: 2px 8px;
+  border-radius: 4px;
+  word-break: break-all;
+  max-width: 560px;
+  overflow-wrap: anywhere;
+}
+.test-row .val.ok  { background: var(--green-bg); border-color: var(--green-bd); color: #14532d; }
+.test-row .val.bad { background: var(--red-bg);   border-color: var(--red-bd);   color: #7f1d1d; }
+
+.test-note {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 2px;
+  font-style: italic;
+  padding-left: 96px;
+}
+.test-item.fail .test-note { color: #b91c1c; }
+.test-item.pass .test-note { color: #15803d; font-style: normal; }
+
+/* ── Scrollbar styling ────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-mid); border-radius: 3px; }

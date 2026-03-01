@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APCS Challenge Problem Grader</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">☕</div>
+      <div class="brand-text">
+        <span class="brand-title">Challenge</span>
+        <span class="brand-title">Problem</span>
+        <span class="brand-title">Grader</span>
+        <span class="brand-sub">AP Computer Science A</span>
+      </div>
+    </div>
+
+    <nav class="problem-nav">
+      <button class="nav-btn active" data-problem="1">
+        <span class="nav-num">01</span>
+        <span class="nav-name">Readability</span>
+        <span class="nav-score" id="score-1"></span>
+      </button>
+      <button class="nav-btn" data-problem="2">
+        <span class="nav-num">02</span>
+        <span class="nav-name">Credit Card</span>
+        <span class="nav-score" id="score-2"></span>
+      </button>
+      <button class="nav-btn" data-problem="3">
+        <span class="nav-num">03</span>
+        <span class="nav-name">Cipher Cracker</span>
+        <span class="nav-score" id="score-3"></span>
+      </button>
+      <button class="nav-btn" data-problem="4">
+        <span class="nav-num">04</span>
+        <span class="nav-name">Recover</span>
+        <span class="nav-score" id="score-4"></span>
+      </button>
+      <button class="nav-btn" data-problem="5">
+        <span class="nav-num">05</span>
+        <span class="nav-name">DNA Matching</span>
+        <span class="nav-score" id="score-5"></span>
+      </button>
+      <button class="nav-btn" data-problem="6">
+        <span class="nav-num">06</span>
+        <span class="nav-name">Runoff</span>
+        <span class="nav-score" id="score-6"></span>
+      </button>
+      <button class="nav-btn" data-problem="7">
+        <span class="nav-num">07</span>
+        <span class="nav-name">Speller Lite</span>
+        <span class="nav-score" id="score-7"></span>
+      </button>
+      <button class="nav-btn" data-problem="8">
+        <span class="nav-num">08</span>
+        <span class="nav-name">Minesweeper</span>
+        <span class="nav-score" id="score-8"></span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="java-check" id="java-status">Checking Java…</div>
+    </div>
+  </aside>
+
+  <!-- ── Main content ──────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Problem 1 -->
+    <div class="panel active" id="panel-1">
+      <header class="panel-header">
+        <div class="panel-num">Problem 01</div>
+        <h1 class="panel-title">Readability 2.0</h1>
+        <p class="panel-sub">Coleman–Liau Grade Level Calculator</p>
+      </header>
+
+      <div class="upload-card">
+        <div class="upload-instructions">
+          <p>Upload your <code>.java</code> file. Your program must:</p>
+          <ul>
+            <li>Read <strong>one line</strong> of text from stdin with <code>Scanner.nextLine()</code></li>
+            <li>Print exactly one line: <code>Grade X</code>, <code>Before Grade 1</code>, or <code>Grade 16+</code></li>
+          </ul>
+        </div>
+        <div class="upload-row">
+          <label class="file-label" for="file-1">
+            <span class="file-icon">📄</span>
+            <span class="file-text" id="file-text-1">Choose .java file(s)…</span>
+          </label>
+          <input type="file" id="file-1" class="file-input" accept=".java" multiple data-problem="1">
+          <button class="grade-btn" data-problem="1" disabled>Test My Code</button>
+        </div>
+      </div>
+
+      <div class="results-area" id="results-1"></div>
+    </div>
+
+    <!-- Problem 2 -->
+    <div class="panel" id="panel-2">
+      <header class="panel-header">
+        <div class="panel-num">Problem 02</div>
+        <h1 class="panel-title">Credit Card Validator</h1>
+        <p class="panel-sub">Luhn's Algorithm + Card Type Detection</p>
+      </header>
+
+      <div class="upload-card">
+        <div class="upload-instructions">
+          <p>Upload your <code>.java</code> file. Your program must:</p>
+          <ul>
+            <li>Read a card number string from stdin with <code>Scanner.next()</code></li>
+            <li>Print one word: <code>VISA</code>, <code>AMEX</code>, <code>MASTERCARD</code>, <code>VALID</code>, or <code>INVALID</code></li>
+            <li>Reject non-digit characters without running Luhn's</li>
+          </ul>
+        </div>
+        <div class="upload-row">
+          <label class="file-label" for="file-2">
+            <span class="file-icon">📄</span>
+            <span class="file-text" id="file-text-2">Choose .java file(s)…</span>
+          </label>
+          <input type="file" id="file-2" class="file-input" accept=".java" multiple data-problem="2">
+          <button class="grade-btn" data-problem="2" disabled>Test My Code</button>
+        </div>
+      </div>
+
+      <div class="results-area" id="results-2"></div>
+    </div>
+
+    <!-- Problem 3 -->
+    <div class="panel" id="panel-3">
+      <header class="panel-header">
+        <div class="panel-num">Problem 03</div>
+        <h1 class="panel-title">Cipher Cracker</h1>
+        <p class="panel-sub">Frequency Analysis + Hill Climbing</p>
+      </header>
+
+      <div class="upload-card">
+        <div class="upload-instructions">
+          <p>Upload your <code>.java</code> file. Your program must:</p>
+          <ul>
+            <li>Read one line of ciphertext from stdin with <code>Scanner.nextLine()</code></li>
+            <li>Print a mapping table headed by <code>Mapping:</code></li>
+            <li>Print the decoded text headed by <code>Decoded:</code></li>
+          </ul>
+          <p class="note-box">⚠️ Scoring is <strong>approximate</strong> — hill climbing is randomized. The grader checks output format and that ≥ 5 common English dictionary words appear in the decoded text.</p>
+        </div>
+        <div class="upload-row">
+          <label class="file-label" for="file-3">
+            <span class="file-icon">📄</span>
+            <span class="file-text" id="file-text-3">Choose .java file(s)…</span>
+          </label>
+          <input type="file" id="file-3" class="file-input" accept=".java" multiple data-problem="3">
+          <button class="grade-btn" data-problem="3" disabled>Test My Code</button>
+        </div>
+      </div>
+
+      <div class="results-area" id="results-3"></div>
+    </div>
+
+    <!-- Problem 4 -->
+    <div class="panel" id="panel-4">
+      <header class="panel-header">
+        <div class="panel-num">Problem 04</div>
+        <h1 class="panel-title">Recover</h1>
+        <p class="panel-sub">Hidden Message in 2D Intensity Grid</p>
+      </header>
+
+      <div class="upload-card">
+        <div class="upload-instructions">
+          <p>Upload your <code>.java</code> file. Your program must:</p>
+          <ul>
+            <li>Hard-code the <strong>5×10 "AB" sample grid</strong> from the problem spec</li>
+            <li>Take <strong>no input</strong> — run without reading stdin</li>
+            <li>Print the decoded message on one line (expected: <code>AB</code>)</li>
+          </ul>
+          <p class="note-box">💡 Make sure to use the exact sample grid from the problem. The grader checks that your output contains <code>AB</code>.</p>
+        </div>
+        <div class="upload-row">
+          <label class="file-label" for="file-4">
+            <span class="file-icon">📄</span>
+            <span class="file-text" id="file-text-4">Choose .java file(s)…</span>
+          </label>
+          <input type="file" id="file-4" class="file-input" accept=".java" multiple data-problem="4">
+          <button class="grade-btn" data-problem="4" disabled>Test My Code</button>
+        </div>
+      </div>
+
+      <div class="results-area" id="results-4"></div>
+    </div>
+
+    <!-- Problem 5 -->
+    <div class="panel" id="panel-5">
+      <header class="panel-header">
+        <div class="panel-num">Problem 05</div>
+        <h1 class="panel-title">DNA Matching</h1>
+        <p class="panel-sub">STR Longest-Run Analysis</p>
+      </header>
+
+      <div class="upload-card">
+        <div class="upload-instructions">
+          <p>Upload your <code>.java</code> file. Your program must:</p>
+          <ul>
+            <li>Read one DNA sequence from stdin with <code>Scanner.nextLine()</code></li>
+            <li>Compute the longest run of each STR: <code>AGATC</code>, <code>TTTTTTCT</code>, <code>AATG</code>, <code>TCTAG</code></li>
+            <li>Print the matching person's name, or <code>No match</code></li>
+          </ul>
+        </div>
+        <div class="upload-row">
+          <label class="file-label" for="file-5">
+            <span class="file-icon">📄</span>
+            <span class="file-text" id="file-text-5">Choose .java file(s)…</span>
+          </label>
+          <input type="file" id="file-5" class="file-input" accept=".java" multiple data-problem="5">
+          <button class="grade-btn" data-problem="5" disabled>Test My Code</button>
+        </div>
+      </div>
+
+      <div class="results-area" id="results-5"></div>
+    </div>
+
+    <!-- Problem 6 -->
+    <div class="panel" id="panel-6">
+      <header class="panel-header">
+        <div class="panel-num">Problem 06</div>
+        <h1 class="panel-title">Runoff</h1>
+        <p class="panel-sub">Ranked-Choice Election Simulator</p>
+      </header>
+
+      <div class="upload-card">
+        <div class="upload-instructions">
+          <p>Upload your <code>.java</code> file. Your program must:</p>
+          <ul>
+            <li>Read number of candidates, then each name, then number of voters, then each voter's ranking (space-separated names)</li>
+            <li>Simulate rounds of elimination until one candidate has a majority or all remaining are tied</li>
+            <li>Print the winner's name, or all tied names (one per line)</li>
+          </ul>
+        </div>
+        <div class="upload-row">
+          <label class="file-label" for="file-6">
+            <span class="file-icon">📄</span>
+            <span class="file-text" id="file-text-6">Choose .java file(s)…</span>
+          </label>
+          <input type="file" id="file-6" class="file-input" accept=".java" multiple data-problem="6">
+          <button class="grade-btn" data-problem="6" disabled>Test My Code</button>
+        </div>
+      </div>
+
+      <div class="results-area" id="results-6"></div>
+    </div>
+
+    <!-- Problem 7 -->
+    <div class="panel" id="panel-7">
+      <header class="panel-header">
+        <div class="panel-num">Problem 07</div>
+        <h1 class="panel-title">Speller Lite</h1>
+        <p class="panel-sub">Binary Search Spell Checker (No HashSet)</p>
+      </header>
+
+      <div class="upload-card">
+        <div class="upload-instructions">
+          <p>Upload your <code>.java</code> file. Your program must:</p>
+          <ul>
+            <li>Read one line of text from stdin with <code>Scanner.nextLine()</code></li>
+            <li>Normalize each word (lowercase, strip surrounding punctuation)</li>
+            <li>Print <code>MISSPELLED WORDS</code>, then each misspelled word (alphabetically, no duplicates)</li>
+            <li>Print <code>WORDS IN TEXT:</code> and <code>MISSPELLINGS:</code> summary lines</li>
+          </ul>
+        </div>
+        <div class="upload-row">
+          <label class="file-label" for="file-7">
+            <span class="file-icon">📄</span>
+            <span class="file-text" id="file-text-7">Choose .java file(s)…</span>
+          </label>
+          <input type="file" id="file-7" class="file-input" accept=".java" multiple data-problem="7">
+          <button class="grade-btn" data-problem="7" disabled>Test My Code</button>
+        </div>
+      </div>
+
+      <div class="results-area" id="results-7"></div>
+    </div>
+
+    <!-- Problem 8 -->
+    <div class="panel" id="panel-8">
+      <header class="panel-header">
+        <div class="panel-num">Problem 08</div>
+        <h1 class="panel-title">Minesweeper</h1>
+        <p class="panel-sub">Clue Generator + Connected Zero Regions</p>
+      </header>
+
+      <div class="upload-card">
+        <div class="upload-instructions">
+          <p>Upload your <code>.java</code> file. Your program must:</p>
+          <ul>
+            <li>Hard-code the <strong>4×4 Sample 1 board</strong>: mines at (0,2) and (2,1)</li>
+            <li>Take <strong>no input</strong> — run without reading stdin</li>
+            <li>Print the clue grid with each cell space-separated (e.g. <code>1 1 * 1</code>)</li>
+          </ul>
+          <p class="note-box">💡 The grader checks that all four rows of the clue grid appear in your output:
+            <code>1 1 * 1</code> &nbsp; <code>1 2 2 1</code> &nbsp; <code>1 * 2 0</code> &nbsp; <code>1 1 2 0</code>
+          </p>
+        </div>
+        <div class="upload-row">
+          <label class="file-label" for="file-8">
+            <span class="file-icon">📄</span>
+            <span class="file-text" id="file-text-8">Choose .java file(s)…</span>
+          </label>
+          <input type="file" id="file-8" class="file-input" accept=".java" multiple data-problem="8">
+          <button class="grade-btn" data-problem="8" disabled>Test My Code</button>
+        </div>
+      </div>
+
+      <div class="results-area" id="results-8"></div>
+    </div>
+
+  </main>
+</div><!-- /.layout -->
+
+<!-- ── JavaScript ─────────────────────────────────────────────────────────── -->
+<script>
+// Navigation
+document.querySelectorAll('.nav-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.problem;
+    document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach((p) => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + id).classList.add('active');
+  });
+});
+
+// File input — enable button and show filename(s)
+document.querySelectorAll('.file-input').forEach((input) => {
+  input.addEventListener('change', () => {
+    const id = input.dataset.problem;
+    const files = input.files;
+    const textEl = document.getElementById('file-text-' + id);
+    const btn = document.querySelector('.grade-btn[data-problem="' + id + '"]');
+    if (files.length === 0) {
+      textEl.textContent = 'Choose .java file(s)…';
+      btn.disabled = true;
+    } else if (files.length === 1) {
+      textEl.textContent = files[0].name;
+      btn.disabled = false;
+    } else {
+      const names = Array.from(files).map(f => f.name).join(', ');
+      textEl.textContent = files.length + ' files: ' + names;
+      btn.disabled = false;
+    }
+  });
+});
+
+// Grade button
+document.querySelectorAll('.grade-btn').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const id = btn.dataset.problem;
+    const input = document.getElementById('file-' + id);
+    const file = input.files[0];
+    if (!file) return;
+
+    const resultsEl = document.getElementById('results-' + id);
+    resultsEl.innerHTML = '<div class="loading"><span class="spinner"></span> Compiling and running tests…</div>';
+    btn.disabled = true;
+    btn.textContent = 'Testing…';
+
+    const formData = new FormData();
+    formData.append('javaFile', file);
+
+    try {
+      const resp = await fetch('/grade/' + id, { method: 'POST', body: formData });
+      const data = await resp.json();
+      renderResults(id, data, resultsEl);
+    } catch (err) {
+      resultsEl.innerHTML = '<div class="error-box">Network error: ' + escHtml(err.message) + '</div>';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Test My Code';
+    }
+  });
+});
+
+function renderResults(id, data, container) {
+  if (data.error) {
+    container.innerHTML = '<div class="error-box"><strong>Error:</strong> ' + escHtml(data.error) + '</div>';
+    return;
+  }
+
+  if (data.compilationError) {
+    container.innerHTML =
+      '<div class="compile-error">' +
+        '<div class="compile-title">⚠️ Compilation Error in <code>' + escHtml(data.className) + '.java</code></div>' +
+        '<pre class="error-pre">' + escHtml(data.compilationError) + '</pre>' +
+      '</div>';
+    return;
+  }
+
+  const { results, passed, total, className } = data;
+
+  let html = '<div class="results-header">';
+  const fileLabel = data.fileList && data.fileList !== className + '.java'
+    ? 'Files: <code>' + escHtml(data.fileList) + '</code>'
+    : 'Class: <code>' + escHtml(className) + '</code>';
+  html += '<span class="class-name">' + fileLabel + '</span>';
+  html += '<span class="score-badge ' + (passed === total ? 'all-pass' : passed > 0 ? 'some-pass' : 'all-fail') + '">';
+  html += passed + ' / ' + total + ' passed';
+  html += '</span></div>';
+
+  html += '<div class="test-list">';
+  results.forEach((r, i) => {
+    const icon = r.pass ? '✓' : '✗';
+    const cls  = r.pass ? 'pass' : 'fail';
+
+    html += '<div class="test-item ' + cls + '">';
+    html += '<div class="test-header">';
+    html += '<span class="test-icon">' + icon + '</span>';
+    html += '<span class="test-num">Test ' + (i + 1) + '</span>';
+    html += '<span class="test-desc">' + escHtml(r.description) + '</span>';
+    if (r.timedOut) html += '<span class="badge timeout">TIMEOUT</span>';
+    html += '</div>';
+
+    html += '<div class="test-body">';
+    html += '<div class="test-row"><span class="label">Input</span><code class="val">' + escHtml(r.inputDisplay) + '</code></div>';
+    if (r.expectedDisplay !== null) {
+      html += '<div class="test-row"><span class="label">Expected</span><code class="val">' + escHtml(String(r.expectedDisplay)) + '</code></div>';
+    }
+    if (r.actual !== undefined) {
+      html += '<div class="test-row"><span class="label">Your output</span><code class="val ' + (r.pass ? 'ok' : 'bad') + '">' + escHtml(r.actual || '(empty)') + '</code></div>';
+    }
+    if (r.note) {
+      html += '<div class="test-note">' + escHtml(r.note) + '</div>';
+    }
+    html += '</div></div>';
+  });
+  html += '</div>';
+
+  container.innerHTML = html;
+
+  // Update sidebar score badge
+  const scoreEl = document.getElementById('score-' + id);
+  if (scoreEl) {
+    scoreEl.textContent = passed + '/' + total;
+    scoreEl.className = 'nav-score ' + (passed === total ? 'all-pass' : passed > 0 ? 'some-pass' : 'all-fail');
+  }
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// Check that Java is available
+(async () => {
+  const statusEl = document.getElementById('java-status');
+  try {
+    const r = await fetch('/health');
+    const d = await r.json();
+    statusEl.textContent = '☑ Java ' + d.javaVersion + ' detected';
+    statusEl.className = 'java-check ok';
+  } catch {
+    statusEl.textContent = '⚠ Could not verify Java';
+    statusEl.className = 'java-check warn';
+  }
+})();
+</script>
+
+</body>
+</html>
