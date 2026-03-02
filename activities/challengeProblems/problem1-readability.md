@@ -31,8 +31,7 @@ index = 0.0588 * L − 0.296 * S − 15.8
   character individually).
 
 > **Clarification on sentences:** Count every occurrence of `.`, `!`, or `?` in the
-> input, including ones inside words like `U.S.A.` This is intentional — it matches
-> the original CS50 specification.
+> input, including ones inside words like `U.S.A.`
 
 ---
 
