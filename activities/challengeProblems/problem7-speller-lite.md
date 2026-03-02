@@ -24,8 +24,7 @@ for performance, not just how to use built-in ones.
 
 ## The Dictionary
 
-Hard-code this small dictionary in your program for testing. Your teacher may provide
-a larger file for the final version.
+Hard-code this small dictionary in your program for testing.
 
 ```java
 String[] RAW_DICTIONARY = {
@@ -250,8 +249,6 @@ comparisons with binary search.
 
 ## Extension Challenges
 
-- **Read from a file:** Accept a filename as a command-line argument for both the
-  dictionary and the passage.
 - **Suggestions:** For each misspelled word, print the 3 closest dictionary words by
   **edit distance** (the number of character insertions, deletions, or substitutions
   needed to convert one word to another).
