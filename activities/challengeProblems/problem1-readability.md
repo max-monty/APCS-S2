@@ -92,11 +92,11 @@ Grade 3
 
 **Worked example:**
 - Letters: 65 (`Congratulations`, `Today`, `is`, … — count each A–Z/a–z)
-- Words: 16
+- Words: 14
 - Sentences: 4 (one `!`, one `.`, one `!`, one `!`)
-- L = 65/16 * 100 ≈ 406.25
-- S = 4/16 * 100 = 25.0
-- index = 0.0588 * 406.25 − 0.296 * 25.0 − 15.8 ≈ 23.89 − 7.4 − 15.8 ≈ 3.0 → **Grade 3**
+- L = 65/14 * 100 ≈ 464.29
+- S = 4/14 * 100 = 28.57
+- index = 0.0588 * 464.29 − 0.296 * 28.57 − 15.8 ≈ 3.04 → **Grade 3**
 
 ---
 
