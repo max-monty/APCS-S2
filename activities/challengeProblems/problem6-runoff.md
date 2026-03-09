@@ -58,16 +58,7 @@ indices when storing in `preferences`.
 ### Sample Input
 
 ```
-3
-Alice
-Bob
-Charlie
-5
-Alice Bob Charlie
-Charlie Alice Bob
-Bob Charlie Alice
-Alice Charlie Bob
-Charlie Bob Alice
+3 Alice Bob Charlie 5 Alice Bob Charlie Charlie Alice Bob Bob Charlie Alice Alice Charlie Bob Charlie Bob Alice
 ```
 
 ---
@@ -163,14 +154,7 @@ Charlie
 ### Sample 2 — Tie
 **Input:**
 ```
-2
-Alice
-Bob
-4
-Alice Bob
-Alice Bob
-Bob Alice
-Bob Alice
+2 Alice Bob 4 Alice Bob Alice Bob Bob Alice Bob Alice
 ```
 
 **Round 1:**
@@ -187,18 +171,7 @@ Bob
 ### Sample 3 — Multiple Elimination Rounds
 **Input:**
 ```
-4
-Alice
-Bob
-Charlie
-Diana
-6
-Alice Bob Charlie Diana
-Bob Alice Charlie Diana
-Charlie Bob Alice Diana
-Diana Alice Bob Charlie
-Alice Charlie Bob Diana
-Bob Charlie Alice Diana
+4 Alice Bob Charlie Diana 6 Alice Bob Charlie Diana Bob Alice Charlie Diana Charlie Bob Alice Diana Diana Alice Bob Charlie Alice Charlie Bob Diana Bob Charlie Alice Diana
 ```
 
 Work through this yourself! Hint: Diana gets 1 first-choice vote in round 1.
