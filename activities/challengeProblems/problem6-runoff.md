@@ -41,19 +41,9 @@ int[] votes;                  // current round first-choice vote counts
 
 ## Input Format
 
-```
-<number of candidates>
-<candidate name 1>
-<candidate name 2>
-...
-<number of voters>
-<voter 1 ranking: name name name ...>
-<voter 2 ranking: name name name ...>
-...
-```
+Input will be one large `String` starting with the number of candidates followed by a space, then each candidates name followed by a space, then the number of voters followed by a space, then each voters ordered ranking of candidates separated by spaces.
 
-Voters enter their full ranking as space-separated candidate names. Convert names to
-indices when storing in `preferences`.
+Convert names to indices when storing in `preferences`.
 
 ### Sample Input
 
