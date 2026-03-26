@@ -35,62 +35,80 @@ neighbors; your code must handle this without throwing an `ArrayIndexOutOfBounds
 
 ### Sample 1 — 4×4 Grid
 **Input:**
+```java
+char[][] board = {
+    {'.', '.', '*', '.'},
+    {'.', '.', '.', '.'},
+    {'.', '*', '.', '.'},
+    {'.', '.', '.', '.'}
+};
 ```
-. . * .
-. . . .
-. * . .
-. . . .
-```
-*(Stored as char[][] with no spaces between elements)*
 
 **Output:**
-```
-1 1 * 1
-1 2 2 1
-1 * 2 0
-1 1 2 0
+```java
+char[][] expected = {
+    {'0', '1', '*', '1'},
+    {'1', '2', '2', '1'},
+    {'1', '*', '1', '0'},
+    {'1', '1', '1', '0'}
+};
 ```
 
 ### Sample 2 — 3×3 Grid, All Mines
 **Input:**
+```java
+char[][] board = {
+    {'*', '*', '*'},
+    {'*', '*', '*'},
+    {'*', '*', '*'}
+};
 ```
-* * *
-* * *
-* * *
-```
+
 **Output:**
-```
-* * *
-* * *
-* * *
+```java
+char[][] expected = {
+    {'*', '*', '*'},
+    {'*', '*', '*'},
+    {'*', '*', '*'}
+};
 ```
 
 ### Sample 3 — 3×3 Grid, No Mines
 **Input:**
+```java
+char[][] board = {
+    {'.', '.', '.'},
+    {'.', '.', '.'},
+    {'.', '.', '.'}
+};
 ```
-. . .
-. . .
-. . .
-```
+
 **Output:**
-```
-0 0 0
-0 0 0
-0 0 0
+```java
+char[][] expected = {
+    {'0', '0', '0'},
+    {'0', '0', '0'},
+    {'0', '0', '0'}
+};
 ```
 
 ### Sample 4 — 3×5 Grid
 **Input:**
+```java
+char[][] board = {
+    {'.', '.', '*', '.', '.'},
+    {'.', '.', '.', '.', '*'},
+    {'*', '.', '.', '.', '.'}
+};
 ```
-. . * . .
-. . . . *
-* . . . .
-```
+
 **Output:**
-```
-0 1 * 1 1
-1 2 2 3 *
-* 1 0 1 1
+```java
+char[][] expected = {
+    {'0', '1', '*', '2', '1'},
+    {'1', '2', '1', '2', '*'},
+    {'*', '1', '0', '1', '1'}
+};
 ```
 
 ---
@@ -135,47 +153,69 @@ An `int[][] regions` grid of the same size as the board where:
 - Cells that are `'0'` in the clue grid get a region ID (1, 2, 3, …)
 - All other cells (mines or non-zero clues) get ID `0`
 
-### Sample
+### Part 2 Sample 1 — Two Small Regions
 
 Using Sample 1's clue grid:
-```
-1 1 * 1
-1 2 2 1
-1 * 2 0     ← cell (2,3) = '0', region 1
-1 1 2 0     ← cell (3,3) = '0', region 1 (connected to (2,3) vertically)
+```java
+// Clue grid (from Sample 1):
+char[][] clueBoard = {
+    {'0', '1', '*', '1'},
+    {'1', '2', '2', '1'},
+    {'1', '*', '1', '0'},
+    {'1', '1', '1', '0'}
+};
 ```
 
 **Regions output:**
-```
-0 0 0 0
-0 0 0 0
-0 0 0 1
-0 0 0 1
+```java
+int[][] regions = {
+    {1, 0, 0, 0},
+    {0, 0, 0, 0},
+    {0, 0, 0, 2},
+    {0, 0, 0, 2}
+};
 ```
 
-Region 1 has 2 cells: `(2,3)` and `(3,3)`.
+Region 1 has 1 cell: `(0,0)`. Region 2 has 2 cells: `(2,3)` and `(3,3)`.
 
-### Sample 2 — Multiple Regions
+### Part 2 Sample 2 — Two Regions Separated by a Wall of Mines
+
+**Input board:**
+```java
+char[][] board = {
+    {'.', '.', '.', '*', '.', '.', '.'},
+    {'.', '.', '.', '*', '.', '.', '.'},
+    {'.', '.', '.', '*', '.', '.', '.'},
+    {'.', '.', '.', '*', '.', '.', '.'},
+    {'.', '.', '.', '*', '.', '.', '.'}
+};
+```
 
 **Clue grid:**
-```
-0 0 1 * 0
-0 1 1 1 0
-0 0 0 0 0
-1 1 0 0 0
-* 1 0 0 0
+```java
+char[][] clueBoard = {
+    {'0', '0', '2', '*', '2', '0', '0'},
+    {'0', '0', '3', '*', '3', '0', '0'},
+    {'0', '0', '3', '*', '3', '0', '0'},
+    {'0', '0', '3', '*', '3', '0', '0'},
+    {'0', '0', '2', '*', '2', '0', '0'}
+};
 ```
 
 **Regions:**
-```
-1 1 0 0 2
-1 0 0 0 2
-1 1 1 1 2
-0 0 1 1 2
-0 0 1 1 2
+```java
+int[][] regions = {
+    {1, 1, 0, 0, 0, 2, 2},
+    {1, 1, 0, 0, 0, 2, 2},
+    {1, 1, 0, 0, 0, 2, 2},
+    {1, 1, 0, 0, 0, 2, 2},
+    {1, 1, 0, 0, 0, 2, 2}
+};
 ```
 
-Region 1 = left connected cluster of zeros; Region 2 = right cluster.
+Region 1 = left cluster of zeros; Region 2 = right cluster. The column of mines and
+their neighboring clue cells (`'2'` and `'3'`) form a barrier that prevents the two
+regions from connecting.
 
 ---
 
@@ -188,26 +228,25 @@ Region 1 = left connected cluster of zeros; Region 2 = right cluster.
 // Non-zero and mine cells get 0.
 int[][] labelRegions(char[][] clueBoard)
 
-// Flood-fill: mark all '0' cells reachable from (r, c) with regionId
-// Uses a stack (ArrayList<int[]>) to avoid recursion
+// Recursive flood-fill: mark all '0' cells reachable from (r, c) with regionId
 void floodFill(char[][] clueBoard, int[][] regions, int r, int c, int regionId)
 ```
 
-### Flood-Fill Algorithm (Iterative Stack)
+### Flood-Fill Algorithm (Recursive)
 
-Do **not** use recursion for flood-fill — deep grids could cause a stack overflow.
-Use an `ArrayList<int[]>` as an explicit stack:
+Use recursion for flood-fill. All boards in this assignment are small enough that
+recursion will not cause a stack overflow.
 
-```
-push (r, c) onto stack
-while stack is not empty:
-    pop (row, col) from stack
-    if (row, col) is out of bounds: skip
-    if regions[row][col] != 0: skip (already labeled)
-    if clueBoard[row][col] != '0': skip (not a zero cell)
-    regions[row][col] = regionId
-    push (row-1, col), (row+1, col), (row, col-1), (row, col+1) onto stack
-```
+Think of it like pouring paint onto a tile floor: the paint lands on one `'0'` cell,
+labels it, and then spreads to each of its four neighbors (up, down, left, right).
+Each neighbor does the same thing — labels itself and spreads further. The paint stops
+when it hits a cell that's out of bounds, already labeled, or not a `'0'`.
+
+To write `floodFill`, you need to think about two things:
+
+1. **Base cases:** What are the three reasons the method should stop and do nothing?
+2. **Recursive step:** If this cell *is* a valid, unlabeled `'0'`, label it — then
+   what four calls should you make to keep spreading?
 
 In `labelRegions`, iterate over every cell. When you find a `'0'` with `regions[r][c] == 0`
 (not yet labeled), call `floodFill` with a new `regionId`, then increment `regionId`.
@@ -234,30 +273,46 @@ Print the board state after each click, showing:
 
 ### Sample Reveal Session
 
+Using Sample 1's 4×4 board:
+
+**Initial (all hidden):**
+```java
+char[][] display = {
+    {'?', '?', '?', '?'},
+    {'?', '?', '?', '?'},
+    {'?', '?', '?', '?'},
+    {'?', '?', '?', '?'}
+};
 ```
-Initial (all hidden):
-? ? ? ?
-? ? ? ?
-? ? ? ?
-? ? ? ?
 
-Click (3, 3):
-? ? ? ?
-? ? ? ?
-? ? ? 0
-? ? ? 0
+**After click (3, 3) — a zero cell, reveals region 2: cells (2,3) and (3,3):**
+```java
+char[][] display = {
+    {'?', '?', '?', '?'},
+    {'?', '?', '?', '?'},
+    {'?', '?', '?', '0'},
+    {'?', '?', '?', '0'}
+};
+```
 
-Click (0, 0):
-1 ? ? ?
-? ? ? ?
-? ? ? 0
-? ? ? 0
+**After click (0, 0) — a zero cell, reveals region 1: just cell (0,0):**
+```java
+char[][] display = {
+    {'0', '?', '?', '?'},
+    {'?', '?', '?', '?'},
+    {'?', '?', '?', '0'},
+    {'?', '?', '?', '0'}
+};
+```
 
-Click (1, 2) — mine at (0, 2)? No — but clicking a non-zero reveals just that cell:
-1 ? ? ?
-? ? 2 ?
-? ? ? 0
-? ? ? 0
+**After click (1, 2) — a non-zero clue, reveals just that cell:**
+```java
+char[][] display = {
+    {'0', '?', '?', '?'},
+    {'?', '?', '2', '?'},
+    {'?', '?', '?', '0'},
+    {'?', '?', '?', '0'}
+};
 ```
 
 ---
@@ -265,10 +320,11 @@ Click (1, 2) — mine at (0, 2)? No — but clicking a non-zero reveals just tha
 ## Suggested Development Order
 
 1. Write `inBounds` — test it with a 3×3 grid.
-2. Write `countNeighborMines` — verify on cell (0,0) of Sample 1 (should be 1).
+2. Write `countNeighborMines` — verify on cell (0,0) of Sample 1 (should be 0, since
+   the mine at (0,2) is not adjacent to (0,0)).
 3. Write `generateClues` — print the result for Sample 1 and compare.
-4. Write `floodFill` using the iterative stack algorithm.
-5. Write `labelRegions` — test on Sample 2 of Part 2.
+4. Write `floodFill` using recursion — test it on a small grid with a few connected zeros.
+5. Write `labelRegions` — test on Part 2 Sample 2.
 6. (Extension) Write `reveal` and the display loop.
 
 ---
@@ -289,23 +345,31 @@ Click (1, 2) — mine at (0, 2)? No — but clicking a non-zero reveals just tha
 
 Use this 3×3 board to verify each cell:
 
-```
-Board:       Expected clues:
-. * .         1 * 1
-. . .         1 1 1
-. . *         0 1 *
+```java
+// Board:
+char[][] board = {
+    {'.', '*', '.'},
+    {'.', '.', '.'},
+    {'.', '.', '*'}
+};
+
+// Expected clues:
+char[][] expected = {
+    {'1', '*', '1'},
+    {'1', '2', '2'},
+    {'0', '1', '*'}
+};
 ```
 
 | Cell   | Neighbors that are mines | Expected clue |
 |--------|--------------------------|---------------|
-| (0,0)  | (0,1) → 1 mine           | `'1'`         |
-| (0,2)  | (0,1) → 1 mine           | `'1'`         |
-| (1,0)  | (0,1) → 1 mine           | `'1'`         |
-| (1,1)  | (0,1), (2,2) → 2 mines   | `'2'`... wait |
-
-Actually count more carefully — (1,1)'s 8 neighbors are (0,0),(0,1),(0,2),(1,0),(1,2),(2,0),(2,1),(2,2). Mines among them: (0,1) and (2,2) → **2 mines**. Expected: `'2'`.
-
-Recheck: the expected output above needs correction for (1,1). This is intentional — verify it yourself!
+| (0,0)  | (0,1)                    | `'1'`         |
+| (0,2)  | (0,1)                    | `'1'`         |
+| (1,0)  | (0,1)                    | `'1'`         |
+| (1,1)  | (0,1), (2,2)             | `'2'`         |
+| (1,2)  | (0,1), (2,2)             | `'2'`         |
+| (2,0)  | none                     | `'0'`         |
+| (2,1)  | (2,2)                    | `'1'`         |
 
 ---
 
