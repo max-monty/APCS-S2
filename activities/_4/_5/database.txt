@@ -1,0 +1,6 @@
+AGATC TTTTTTCT AATG TCTAG
+Alice 2 8 3 7
+Bob 4 1 5 2
+Charlie 3 2 6 4
+Diana 6 4 2 3
+Eve 1 7 4 5
