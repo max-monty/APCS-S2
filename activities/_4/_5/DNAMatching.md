@@ -50,7 +50,7 @@ Read `database.txt` into parallel arrays:
 - `String[] names` — one per person
 - One `int[]` per STR marker to hold each person's count, e.g. `int[] agatcCounts`, `int[] ttttttctCounts`, etc.
 
-Alternatively, you can store all counts in a single flat `int[]` and use index math: person `i`'s count for STR `j` lives at index `i * numSTRs + j`.
+Alternatively, you can store all counts in a single 2D array.
 
 **Hint:** Read line 1 and `split(" ")` to get the STRs. For each remaining line, split it, grab the name from index 0, and parse the ints from the rest.
 
