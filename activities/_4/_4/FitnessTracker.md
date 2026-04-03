@@ -90,6 +90,7 @@ public class FitnessTracker {
         Scanner reader = new Scanner(new File("fitness.txt"));
 
         int n = reader.nextInt();
+        reader.nextLine(); // consume the rest of the line after nextInt()
         int[] steps = new int[n];
         int[] activeMinutes = new int[n];
         int[] calories = new int[n];

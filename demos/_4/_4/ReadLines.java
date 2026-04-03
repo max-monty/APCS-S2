@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 public class ReadLines {
     public static void main(String[] args) throws IOException {
+
         Scanner reader = new Scanner(new File("demos/_4/_4/haiku.txt"));
+
         while (reader.hasNextLine()) {
             String line = reader.nextLine();
             System.out.println(line);

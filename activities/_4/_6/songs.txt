@@ -1,0 +1,15 @@
+Bohemian Rhapsody,Queen,355
+Billie Jean,Michael Jackson,294
+Smells Like Teen Spirit,Nirvana,301
+Hey Jude,The Beatles,431
+Lose Yourself,Eminem,326
+Rolling in the Deep,Adele,228
+Stairway to Heaven,Led Zeppelin,482
+Hotel California,Eagles,391
+Superstition,Stevie Wonder,245
+Blinding Lights,The Weeknd,200
+Bad Guy,Billie Eilish,194
+Shape of You,Ed Sheeran,234
+Old Town Road,Lil Nas X,113
+Watermelon Sugar,Harry Styles,174
+Levitating,Dua Lipa,203

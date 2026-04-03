@@ -1,0 +1,1 @@
+Computer science is about solving problems with algorithms and data structures. Every programmer needs to understand how arrays, lists, and loops work together. Without these fundamental tools, building software would be nearly impossible.
