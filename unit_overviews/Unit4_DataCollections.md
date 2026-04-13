@@ -1,12 +1,12 @@
-# Unit 4: Data Collections — Arrays
+# Unit 4: Data Collections
 
-**AP Exam Weighting: 30-40%** (full unit) | AP Topics covered so far: 4.3-4.5
+**AP Exam Weighting: 30-40%** | AP Topics: 4.1-4.13
 
 ---
 
 ## Conceptual Overview
 
-Unit 4 introduces arrays — fixed-size collections that store multiple values of the same type under a single variable name. Students learn to create arrays, access individual elements by index, and traverse arrays with different loop types. The unit builds to implementing standard algorithms (find max, search, count, filter, sort) on arrays, including arrays of custom objects. This is the highest-weighted unit on the AP exam.
+Unit 4 introduces the three core data structures in AP CS A: arrays, ArrayLists, and 2D arrays. Students learn to create, traverse, and implement algorithms on each. The unit also covers reading data from text files and using wrapper classes to bridge primitives and objects. This is the highest-weighted unit on the AP exam.
 
 ---
 
@@ -17,105 +17,186 @@ Unit 4 introduces arrays — fixed-size collections that store multiple values o
 | **Array** | An ordered, fixed-size collection of elements of the same type |
 | **Element** | A single value stored in an array |
 | **Index** | The position of an element (starting at 0) |
-| **Length** | The number of elements in an array, accessed via `.length` |
+| **Length** | Number of elements; `.length` for arrays, `.size()` for ArrayList |
 | **Initializer list** | Creating an array with values: `{1, 2, 3}` |
-| **Default value** | The value elements get when an array is created with `new` |
-| **Traversal** | Visiting each element in an array |
-| **Indexed for loop** | `for (int i = 0; i < arr.length; i++)` — accesses elements by index |
-| **Enhanced for loop** | `for (int x : arr)` — reads each element without needing the index |
+| **Default value** | The value elements get when created with `new` (0, 0.0, false, null) |
+| **Traversal** | Visiting each element in a collection |
+| **Indexed for loop** | `for (int i = 0; i < arr.length; i++)` |
+| **Enhanced for loop** | `for (int x : arr)` — reads each element without the index |
 | **Parallel arrays** | Two or more arrays where the same index corresponds to related data |
 | **Linear search** | Checking elements one by one to find a target value |
 | **ArrayIndexOutOfBoundsException** | Error from accessing an index outside 0 to length-1 |
-| **Aliasing** | When two array variables point to the same array in memory |
+| **Aliasing** | When two variables point to the same array/object in memory |
+| **ArrayList** | A resizable list from `java.util` that stores object references |
+| **Autoboxing** | Automatic conversion from primitive to wrapper (`int` → `Integer`) |
+| **Unboxing** | Automatic conversion from wrapper to primitive (`Integer` → `int`) |
+| **Wrapper class** | `Integer`, `Double` — object versions of primitives for use in ArrayList |
+| **ConcurrentModificationException** | Error from modifying an ArrayList during enhanced for loop |
+| **2D array** | An array of arrays; accessed with `[row][col]` |
+| **Row-major order** | Traversing a 2D array row by row (outer loop = rows) |
+| **Column-major order** | Traversing a 2D array column by column (outer loop = columns) |
+| **File** | A `java.io` class representing a file on disk |
+| **Scanner** | Used to read data from files (or keyboard) |
+| **IOException** | Checked exception required when using File I/O |
+
+---
+
+## Topics Covered
+
+### 4.3-4.5 — Arrays
+
+Creation with `new` and initializer lists. Traversal with indexed for, enhanced for, and while loops. Standard algorithms: find max/min, sum/average, count, search, filter, reverse, shift, selection sort.
+
+### 4.6 — Text Files
+
+Reading data from files using `Scanner` and `File`. Methods: `hasNext()`, `hasNextLine()`, `hasNextInt()`, `nextLine()`, `nextInt()`, `next()`, `split()`, `close()`. Requires `import java.io.*` and `throws IOException`.
+
+### 4.7 — Wrapper Classes
+
+`Integer` and `Double` as object wrappers for primitives. Autoboxing/unboxing. `Integer.parseInt()`, `Double.parseDouble()`.
+
+### 4.8-4.10 — ArrayLists
+
+Dynamic-size lists of objects. Methods: `add()`, `get()`, `set()`, `remove()`, `size()`, `contains()`. Traversal pitfalls: remove-during-forward-traversal skips elements (fix: traverse backwards), enhanced for loop throws `ConcurrentModificationException` if modified. Same algorithm patterns as arrays but with ArrayList methods.
+
+### 4.11-4.13 — 2D Arrays
+
+An array of arrays. Created with `new int[rows][cols]` or nested initializer lists. Accessed with `grid[row][col]`. Dimensions: `grid.length` = rows, `grid[0].length` = cols. Traversed with nested for loops (row-major or column-major) or nested enhanced for loops. Algorithms operate on the entire grid, a single row, a single column, or a subsection.
 
 ---
 
 ## Syntax Reference
 
-### Creating Arrays
+### Arrays
 
 ```java
-// With an initializer list
-int[] nums = {10, 20, 30, 40, 50};
-String[] names = {"Alice", "Bob", "Charlie"};
-
-// With new (elements get default values)
-int[] scores = new int[5];         // all 0
-double[] prices = new double[3];   // all 0.0
-boolean[] flags = new boolean[4];  // all false
-String[] words = new String[3];    // all null
-```
-
-### Default Values
-
-| Type | Default Value |
-|------|--------------|
-| `int` | `0` |
-| `double` | `0.0` |
-| `boolean` | `false` |
-| Reference types (`String`, objects) | `null` |
-
-### Accessing and Modifying
-
-```java
-int first = nums[0];              // access first element
-int last = nums[nums.length - 1]; // access last element
-nums[2] = 99;                     // modify element at index 2
-int len = nums.length;            // number of elements (attribute, NOT a method)
+int[] nums = {10, 20, 30};
+int[] scores = new int[5];           // all 0
+int first = nums[0];
+nums[2] = 99;
+int len = nums.length;               // attribute, NOT a method
 ```
 
 ### Array Traversals
 
 ```java
-// Indexed for loop — use when you need the index
+// Indexed for loop
 for (int i = 0; i < arr.length; i++) {
     System.out.println(arr[i]);
 }
 
-// Enhanced for loop — use for read-only access to all elements
+// Enhanced for loop (read-only)
 for (int num : arr) {
     System.out.println(num);
 }
 
-// While loop — use for early exit (search)
-int i = 0;
-while (i < arr.length) {
-    System.out.println(arr[i]);
-    i++;
-}
-
-// Backwards traversal
+// Backwards
 for (int i = arr.length - 1; i >= 0; i--) {
-    System.out.println(arr[i]);
-}
-
-// Every other element
-for (int i = 0; i < arr.length; i += 2) {
     System.out.println(arr[i]);
 }
 ```
 
-### When to Use Which Loop
-
-| Situation | Best Loop |
-|-----------|-----------|
-| Read all elements, no index needed | Enhanced for |
-| Need the index (modify, compare, parallel arrays) | Indexed for |
-| Backwards or skip elements | Indexed for |
-| Stop early when found | While (or indexed for with `break`) |
-
-### Array References
+### Text File I/O
 
 ```java
-int[] a = {1, 2, 3};
-int[] b = a;        // ALIAS — same array!
-b[0] = 99;
-// a[0] is now 99
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
-// True copy:
-int[] copy = new int[a.length];
-for (int i = 0; i < a.length; i++) {
-    copy[i] = a[i];
+Scanner reader = new Scanner(new File("data.txt"));
+while (reader.hasNextLine()) {
+    String line = reader.nextLine();
+}
+reader.close();
+```
+
+### Wrapper Classes
+
+```java
+Integer a = 5;                       // autoboxing
+int b = a;                           // unboxing
+int num = Integer.parseInt("42");
+double val = Double.parseDouble("3.14");
+```
+
+### ArrayLists
+
+```java
+import java.util.ArrayList;
+
+ArrayList<String> names = new ArrayList<String>();
+names.add("Alice");                  // append
+names.add(0, "Bob");                 // insert at index
+String s = names.get(0);            // access
+names.set(1, "Charlie");            // replace
+names.remove(0);                     // remove by index
+int n = names.size();                // size (method, not attribute)
+boolean has = names.contains("Bob"); // search
+```
+
+### ArrayList Traversal Pitfalls
+
+```java
+// BUG: remove during forward traversal skips elements
+for (int i = 0; i < list.size(); i++) {
+    if (condition) list.remove(i);   // skips the next element!
+}
+
+// FIX: traverse backwards
+for (int i = list.size() - 1; i >= 0; i--) {
+    if (condition) list.remove(i);
+}
+
+// ERROR: modifying during enhanced for
+for (String s : list) {
+    list.remove(s);                  // ConcurrentModificationException!
+}
+```
+
+### 2D Arrays
+
+```java
+// Creation
+int[][] grid = new int[3][4];       // 3 rows, 4 columns, all 0
+int[][] grid = {{1, 2, 3}, {4, 5, 6}};
+
+// Dimensions
+int rows = grid.length;             // number of rows
+int cols = grid[0].length;          // number of columns
+
+// Access
+int val = grid[1][2];               // row 1, col 2
+grid[0][0] = 99;                    // modify
+
+// Access a full row (1D array)
+int[] row = grid[0];
+```
+
+### 2D Array Traversals
+
+```java
+// Row-major order (standard)
+for (int r = 0; r < grid.length; r++) {
+    for (int c = 0; c < grid[0].length; c++) {
+        System.out.print(grid[r][c] + " ");
+    }
+    System.out.println();
+}
+
+// Column-major order
+for (int c = 0; c < grid[0].length; c++) {
+    for (int r = 0; r < grid.length; r++) {
+        System.out.print(grid[r][c] + " ");
+    }
+    System.out.println();
+}
+
+// Enhanced for (read-only)
+for (int[] row : grid) {
+    for (int val : row) {
+        System.out.print(val + " ");
+    }
+    System.out.println();
 }
 ```
 
@@ -123,185 +204,120 @@ for (int i = 0; i < a.length; i++) {
 
 ## Standard Algorithm Patterns
 
-### Find Maximum
+### Find Maximum (1D)
 
 ```java
 int max = arr[0];
 for (int i = 1; i < arr.length; i++) {
-    if (arr[i] > max) {
-        max = arr[i];
-    }
+    if (arr[i] > max) max = arr[i];
 }
 ```
 
-### Find Minimum
-
-```java
-int min = arr[0];
-for (int i = 1; i < arr.length; i++) {
-    if (arr[i] < min) {
-        min = arr[i];
-    }
-}
-```
-
-### Sum and Average
+### Sum and Average (1D)
 
 ```java
 int sum = 0;
-for (int num : arr) {
-    sum += num;
-}
+for (int num : arr) sum += num;
 double avg = (double) sum / arr.length;
 ```
 
-### Count Matches
+### Count Matches / Has / All (1D)
 
 ```java
 int count = 0;
-for (int num : arr) {
-    if (num > 0) {
-        count++;
-    }
-}
-```
-
-### Check if ANY (Has)
-
-```java
 boolean hasNeg = false;
-for (int num : arr) {
-    if (num < 0) {
-        hasNeg = true;
-    }
-}
-```
-
-### Check if ALL
-
-```java
 boolean allPass = true;
 for (int num : arr) {
-    if (num < 60) {
-        allPass = false;
-    }
+    if (num > 0) count++;
+    if (num < 0) hasNeg = true;
+    if (num < 60) allPass = false;
 }
 ```
 
-### Linear Search (Return Index)
+### Linear Search (1D)
 
 ```java
 int index = -1;
 for (int i = 0; i < arr.length; i++) {
-    if (arr[i] == target) {
-        index = i;
-        break;
+    if (arr[i] == target) { index = i; break; }
+}
+```
+
+### 2D Array — Sum a Row
+
+```java
+int sum = 0;
+for (int c = 0; c < grid[0].length; c++) {
+    sum += grid[row][c];
+}
+```
+
+### 2D Array — Sum a Column
+
+```java
+int sum = 0;
+for (int r = 0; r < grid.length; r++) {
+    sum += grid[r][col];
+}
+```
+
+### 2D Array — Find Max of Entire Grid
+
+```java
+int max = grid[0][0];
+for (int r = 0; r < grid.length; r++) {
+    for (int c = 0; c < grid[0].length; c++) {
+        if (grid[r][c] > max) max = grid[r][c];
     }
 }
 ```
 
-### Reverse In-Place
+### 2D Array — Count Matches
 
 ```java
-for (int i = 0; i < arr.length / 2; i++) {
-    int temp = arr[i];
-    arr[i] = arr[arr.length - 1 - i];
-    arr[arr.length - 1 - i] = temp;
-}
-```
-
-### Shift Left (Circular)
-
-```java
-int first = arr[0];
-for (int i = 0; i < arr.length - 1; i++) {
-    arr[i] = arr[i + 1];
-}
-arr[arr.length - 1] = first;
-```
-
-### Build Filtered Array (Two-Pass)
-
-```java
-// Pass 1: count how many match
 int count = 0;
-for (int num : arr) {
-    if (num > 0) count++;
-}
-// Pass 2: create and fill
-int[] filtered = new int[count];
-int idx = 0;
-for (int num : arr) {
-    if (num > 0) {
-        filtered[idx] = num;
-        idx++;
-    }
-}
-```
-
-### Selection Sort (Descending)
-
-```java
-for (int i = 0; i < arr.length - 1; i++) {
-    for (int j = i + 1; j < arr.length; j++) {
-        if (arr[j] > arr[i]) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-    }
-}
-```
-
-### Algorithms on Object Arrays
-
-```java
-// Find student with highest grade
-Student top = roster[0];
-for (int i = 1; i < roster.length; i++) {
-    if (roster[i].getGrade() > top.getGrade()) {
-        top = roster[i];
+for (int[] row : grid) {
+    for (int val : row) {
+        if (val > 0) count++;
     }
 }
 ```
 
 ---
 
-## Enhanced For Loop — Key Limitation
+## When to Use Which Loop (2D)
 
-```java
-// This does NOT modify the array:
-for (int num : arr) {
-    num = num * 2;  // modifies the COPY, not the array element!
-}
-
-// This DOES modify objects in the array (calling methods on references):
-for (Student s : roster) {
-    s.setGrade(s.getGrade() + 5);  // works — modifying through the reference
-}
-```
+| Situation | Best Loop |
+|-----------|-----------|
+| Process all elements, no index needed | Nested enhanced for |
+| Need row/col index (modify, neighbors, subsections) | Nested indexed for |
+| Process a single row | Single for loop over columns |
+| Process a single column | Single for loop over rows |
+| Column-major order | Swap loop order (outer = cols) |
 
 ---
 
 ## Common Pitfalls
 
-1. **Off-by-one**: Valid indices are `0` to `arr.length - 1`. Using `arr.length` as an index crashes
-2. **`.length` not `.length()`**: Arrays use `.length` (attribute). Strings use `.length()` (method)
+1. **Off-by-one**: Valid indices are `0` to `length - 1`
+2. **`.length` vs `.length()` vs `.size()`**: Arrays use `.length`, Strings use `.length()`, ArrayLists use `.size()`
 3. **Enhanced for can't modify primitives**: Assigning to the loop variable only changes the copy
-4. **Forgetting to cast for average**: `sum / arr.length` gives integer division — cast to `double`
-5. **Find-max initialized to 0**: If all values are negative, 0 would be wrong — use `arr[0]`
-6. **Aliasing surprise**: `int[] b = a` does NOT copy — changes to `b` affect `a`
-7. **Empty array edge case**: Algorithms that access `arr[0]` will crash on an empty array
-8. **Parallel array mismatch**: When using two parallel arrays, always access the same index
+4. **Integer division in averages**: Cast to `double` before dividing
+5. **Find-max initialized to 0**: Use `arr[0]` instead — what if all values are negative?
+6. **Aliasing**: `int[] b = a` does NOT copy — both point to the same array
+7. **ArrayList remove during forward traversal**: Skips elements — traverse backwards
+8. **ConcurrentModificationException**: Don't add/remove during enhanced for on ArrayList
+9. **2D array dimensions swapped**: `grid.length` = rows, `grid[0].length` = cols
+10. **Neighbor checks in 2D**: Always bounds-check before accessing `grid[r+1][c]` etc.
 
 ---
 
 ## AP Exam Tips
 
-- The **Data Analysis with Array** free-response question requires writing methods that traverse and process arrays
-- Know all standard algorithm patterns by heart — they appear in almost every exam
-- Enhanced for loops are preferred when you don't need the index and aren't modifying the array
-- When working with object arrays, use accessor methods (`.getX()`) to access data
-- For parallel arrays, you MUST use an indexed for loop (enhanced for can't access two arrays)
-- Tracing through array traversals (predicting output) is heavily tested in multiple choice
-- Remember: arrays are fixed-size. If you need to add/remove elements, you need `ArrayList` (coming next)
+- **Question 3 (FRQ)** is always Data Analysis with ArrayList — practice traversal, removal, and multi-list algorithms
+- **Question 4 (FRQ)** is always 2D Array — practice row/column/subsection traversals and neighbor-checking
+- Enhanced for is preferred when you don't need the index and aren't modifying the collection
+- When removing from an ArrayList in a loop, go backwards or use an indexed for loop
+- For 2D arrays, practice both row-major and column-major traversals — the exam tests both
+- Tracing through nested loops (predicting output) is heavily tested in multiple choice
+- Know the difference between array (fixed size, bracket syntax) and ArrayList (dynamic, method calls)
