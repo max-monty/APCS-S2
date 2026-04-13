@@ -148,6 +148,23 @@ int[][] transposed = transpose(original);     // 3×2
 
 **Think about:** what are the dimensions of the new array?
 
+
+### Exercise 7 — Shift (Extension)
+
+Write a method that returns a **new** 2D array where every element has been shifted one position to the right and one position down, with values wrapping around the edges.
+
+```java
+int[][] original = {{1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+
+int[][] shifted = shiftRightDown(original);
+// shifted = {{9, 7, 8},
+//            {3, 1, 2},
+//            {6, 4, 5}}
+```
+
+
 ---
 
 ## Part 3: Side-by-Side — 1D vs 2D
