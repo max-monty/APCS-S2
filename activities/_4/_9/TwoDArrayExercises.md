@@ -136,7 +136,7 @@ System.out.println(borderSum(g));  // 1+2+3+4+6+7+8+9 = 40
 
 **Hint:** an element is on the border if `r == 0`, `r == grid.length - 1`, `c == 0`, or `c == grid[0].length - 1`.
 
-### Exercise 6 — Transpose (Extension)
+### Exercise 6 — Transpose
 
 Write a method that returns a **new** 2D array that is the transpose of the input (rows become columns, columns become rows).
 
@@ -149,7 +149,7 @@ int[][] transposed = transpose(original);     // 3×2
 **Think about:** what are the dimensions of the new array?
 
 
-### Exercise 7 — Shift (Extension)
+### Exercise 7 — Shift
 
 Write a method that returns a **new** 2D array where every element has been shifted one position to the right and one position down, with values wrapping around the edges.
 
