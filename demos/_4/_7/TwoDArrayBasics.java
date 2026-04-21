@@ -29,7 +29,7 @@ public class TwoDArrayBasics {
 
         // Print the grid
         for (int r = 0; r < table.length; r++) {
-            for (int c = 0; c < table[0].length; c++) {
+            for (int c = 0; c < table[r].length; c++) {
                 System.out.print(table[r][c] + " ");
             }
             System.out.println();
