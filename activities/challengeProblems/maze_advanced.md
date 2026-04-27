@@ -57,13 +57,11 @@ Now implement two different algorithms to solve the maze. The start is the top-l
 
 DFS explores as far as possible along a path before backtracking — it's essentially the same logic you used to generate the maze. It will find **a** path, but not necessarily the shortest one.
 
-Use a **stack** (or recursion, which uses the call stack).
-
 ### Algorithm 2: Breadth-First Search (BFS)
 
 BFS explores all cells at distance 1 first, then distance 2, then distance 3, and so on. It guarantees the **shortest** path.
 
-Use a **queue** (`LinkedList` implements `Queue` in Java).
+This will work with ArrayLists, but to scale it to much larger mazes you will need to use a **queue** (`LinkedList` implements `Queue` in Java).
 
 ### The core loop (same structure for both)
 
