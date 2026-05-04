@@ -1,8 +1,8 @@
-# Recursion — Day 2: Binary Search
+# Recursion — Day 2: Recursive Searching and Sorting
 
 ---
 
-## Overview
+## Binary Search
 
 Binary search is the classic "divide and conquer" algorithm. Given a **sorted** array, instead of scanning every element, you:
 
@@ -27,9 +27,7 @@ Binary search is `O(log n)`. Every call roughly **halves** the problem, and `log
 
 "Search a sorted array from `lo` to `hi`" naturally reduces to "search a sorted array from `lo` to `mid-1`" or "from `mid+1` to `hi`" — the exact same problem on a smaller window. That's the pattern recursion is built for.
 
----
-
-## The Recursive Structure
+### The Recursive Structure
 
 ```java
 int binarySearch(int[] arr, int target, int lo, int hi)
@@ -71,13 +69,76 @@ This is a common pattern in recursive code: a small public method that sets up t
 
 ---
 
+## Merge Sort
+
+Merge sort is another divide-and-conquer algorithm. Instead of searching, it **sorts** an array by:
+
+1. **Split** the array in half.
+2. **Recursively sort** each half.
+3. **Merge** the two sorted halves back into one sorted array.
+
+The key insight: merging two already-sorted halves into one sorted whole is easy — you just compare the front of each half and take the smaller one, over and over.
+
+### Performance
+
+| Sort | Worst-case comparisons for n = 1,000 | For n = 1,000,000 |
+|---|---|---|
+| Selection / Insertion sort | ~1,000,000 | ~1,000,000,000,000 |
+| Merge sort | ~10,000 | ~20,000,000 |
+
+Selection and insertion sort are `O(n²)`. Merge sort is `O(n log n)` — each level of recursion does `n` work, and there are `log₂(n)` levels.
+
+### The Recursive Structure
+
+```java
+void mergeSort(int[] arr, int lo, int hi)
+```
+
+- **Parameters** `lo` and `hi` are the inclusive bounds of the region to sort.
+- **Initial call:** `mergeSort(arr, 0, arr.length - 1)`
+- **Base case:** `lo >= hi` → 0 or 1 elements, already sorted, just return.
+- **Recursive calls:** sort the left half (`lo` to `mid`), then the right half (`mid + 1` to `hi`), then merge them.
+
+Pseudocode:
+
+```
+mergeSort(arr, lo, hi):
+    if lo >= hi:
+        return                                    // base case: already sorted
+    mid = (lo + hi) / 2
+    mergeSort(arr, lo, mid)                       // sort left half
+    mergeSort(arr, mid + 1, hi)                   // sort right half
+    merge(arr, lo, mid, hi)                       // merge the two sorted halves
+```
+
+### The merge step
+
+`merge(arr, lo, mid, hi)` combines `arr[lo..mid]` and `arr[mid+1..hi]` (both already sorted) into one sorted region:
+
+1. Create a temp array.
+2. Use two pointers — one for each half. Compare, take the smaller, advance that pointer.
+3. When one side runs out, copy the rest of the other.
+4. Copy temp back into `arr`.
+
+### Binary search vs merge sort
+
+Both use the same recursive pattern — split the problem in half, solve smaller pieces — but in different ways:
+
+| | Binary search | Merge sort |
+|---|---|---|
+| **Recurses on** | one half (left or right) | both halves |
+| **Work done after recursion** | none | merge step |
+| **Performance** | `O(log n)` | `O(n log n)` |
+
+---
+
 ## Activity
 
 Open `RecursiveBinarySearch.java`. Fill in `binarySearch`. The `search` wrapper is already written — leave it alone.
 
 ---
 
-## Level 1 🌱 — Trace by Hand First
+## Level 1 — Trace by Hand First
 
 Sorted array:
 
@@ -98,7 +159,7 @@ For each target, write down the `lo`, `hi`, and `mid` at each recursive call unt
 
 ---
 
-## Level 2 🌿 — Implement It
+## Level 2 — Implement It
 
 Fill in:
 
@@ -128,7 +189,11 @@ System.out.println(search(sorted, 100)); // -1
 
 ---
 
-## Level 3 🌳 — Add a Trace
+## Level 3 — Extensions
+
+Pick one or more.
+
+### A) Add a Trace
 
 Make a copy of your method called `binarySearchTrace(int[] arr, int target, int lo, int hi)`. At the top of each call, print:
 
@@ -138,37 +203,13 @@ lo=X hi=Y mid=Z arr[mid]=V
 
 Run it for targets `14`, `5`, and `20`. Do the printed values match the traces you did by hand in Level 1?
 
----
-
-## Level 4 🌲 — Linear vs Binary Race
-
-Write a method that generates a sorted `int[]` of size `n` (just fill with `i * 2`, or any sorted pattern). Then:
-
-1. Use `System.nanoTime()` to time 1,000 searches with **linear search** (you can copy from Lesson 10).
-2. Use `System.nanoTime()` to time 1,000 searches with your recursive binary search.
-3. Try `n = 1,000`, `n = 100,000`, `n = 10,000,000`.
-
-How does the gap between the two grow as `n` grows?
-
-**Think:** binary search only works on **sorted** data. Is it still a win if the array isn't already sorted and you'd have to sort it first?
-
----
-
-## Level 5 🌴 — Extensions
-
-Pick one or more.
-
-### A) First Occurrence
+### B) First Occurrence
 
 Modify binary search so that when the array has duplicates, it returns the index of the **first** occurrence of `target`.
 
 - `{1, 2, 2, 2, 3}`, target `2` → `1` (not `2` or `3`)
 
 **Hint:** when you find a match, don't return immediately — keep searching the left half for an earlier match.
-
-### B) `contains` Method
-
-Write `public static boolean contains(int[] arr, int target)` that uses your recursive binary search internally. Return `true` if the target is present.
 
 ### C) Generic Binary Search on Strings
 
@@ -192,6 +233,7 @@ From the last two lessons you should now be able to:
 - Trace a recursive call stack by hand
 - Write simple recursive methods (factorial, Fibonacci, string reverse, palindrome)
 - Implement and reason about recursive binary search
+- Explain how merge sort uses recursion to sort in `O(n log n)`
 - Explain why binary search is `O(log n)` and when it applies
 
 These same patterns — "solve the base case, shrink the problem, combine the result" — come back in AP CS A free-response problems and in every data-structures class you'll take after this.

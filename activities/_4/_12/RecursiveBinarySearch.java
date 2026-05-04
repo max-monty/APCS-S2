@@ -6,7 +6,7 @@ public class RecursiveBinarySearch {
         int[] sorted = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
 
         // test your method here
-        // System.out.println(search(sorted, 14));   // expected: 6
+        System.out.println(search(sorted, 14));   // expected: 6
         // System.out.println(search(sorted, 5));    // expected: -1
 
     }
